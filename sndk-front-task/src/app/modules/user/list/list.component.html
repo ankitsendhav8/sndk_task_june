@@ -1,1 +1,85 @@
-<p>list works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12"></div>
+    <div class="col-12">
+      <div class="card listing-card">
+        <div class="card-header list-header">
+          <div class="row">
+            <div class="heading-text col-4">
+              <i class="fa fa-list"></i>
+              <span>User List</span>
+            </div>
+            <div class="header-filter-row form-row col-8 d-block">
+              <div class="row">
+                <div class="col-8">
+                  <div class="input-group header-search mr-2">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Search by user name and email"
+                      [(ngModel)]="searchText"
+                      name="search"
+                      (ngModelChange)="searchUser()"
+                    />
+                    <div class="input-group-append">
+                      <span class="input-group-text">
+                        <i class="fa fa-search"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <select
+                    class="form-control"
+                    [(ngModel)]="selectedStatus"
+                    (change)="changeStatus()"
+                  >
+                    <option
+                      *ngFor="let option of allStatus"
+                      [value]="option.value"
+                    >
+                      {{ option.label }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body list-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Index</th>
+                <th scope="col">Profile Image</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of allUser; let i = index">
+                <th scope="row" routerLink="{{ user?.userId }}">{{ i }}</th>
+                <td><img [src]="user.profileImage" alt="profile image" /></td>
+                <td>{{ user.firstName | titlecase }}</td>
+                <td>{{ user.lastName | titlecase }}</td>
+                <td>{{ user.fullName | titlecase }}</td>
+                <td>{{ user.email }}</td>
+                <td
+                  [ngClass]="{
+                    'text-primary': user.status === 'active',
+                    'text-danger': user.status === 'inactive'
+                  }"
+                >
+                  {{ user.status | titlecase }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './services/user.service';
+import { LocalstorageService } from './services/localstorage.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +10,22 @@ import { UserService } from './services/user.service';
 })
 export class AppComponent implements OnInit {
   public isLoggedIn: boolean = false;
-  constructor(private userService: UserService) {}
+  constructor(
+    public userService: UserService,
+    private router: Router,
+    private localstorageService: LocalstorageService
+  ) {}
 
   ngOnInit() {
     this.isLoggedIn = this.userService.isUserLoggedIn();
-  }
-  logoutUser() {
-    console.log('logout user ');
+    this.userService.notifyObservable$.subscribe((res) => {
+      console.log('notified result ', res);
+      if (res.option === 'loggedIn') {
+        this.isLoggedIn = true;
+      }
+      if (res.option === 'logout') {
+        this.isLoggedIn = false;
+      }
+    });
   }
 }

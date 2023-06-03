@@ -1,1 +1,42 @@
-<p>details works!</p>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="text-center">User detail</h5>
+      </div>
+      <div class="card-body">
+        <img
+          class="user-profile-image"
+          [src]="
+            userDetail.profileImage
+              ? userDetail.profileImage
+              : '../../../../assets/image/sndklogo.png'
+          "
+        />
+
+        <dl class="inline-dl">
+          <dt>Full Name</dt>
+          <dd>{{ userDetail.fullName | titlecase }}</dd>
+          <dt>First Name</dt>
+          <dd>{{ userDetail.firstName | titlecase }}</dd>
+          <dt>Last Name</dt>
+          <dd>{{ userDetail.lastName | titlecase }}</dd>
+          <dt>Email</dt>
+          <dd>{{ userDetail.email }}</dd>
+          <dt>Status</dt>
+          <dd
+            [ngClass]="{
+              'text-primary': userDetail.status === 'active',
+              'text-danger': userDetail.status === 'inactive'
+            }"
+          >
+            {{ userDetail.status | titlecase }}
+          </dd>
+        </dl>
+      </div>
+      <div class="back-btn-block">
+        <button class="btn btn-secondary" routerLink="../">Back</button>
+      </div>
+    </div>
+  </div>
+</div>
