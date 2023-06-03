@@ -1,26 +1,31 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpEventType,
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import { IUser } from '../constants/user';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private http: HttpClient) {}
   login(user: IUser): Observable<any> {
-    return this.httpClient.post(`/login`, user);
+    return this.http.post(`/login`, user);
   }
   signup(user: IUser): Observable<any> {
-    return this.httpClient.post(`/signup`, user);
+    return this.http.post(`/signup`, user);
   }
   getUserDetail(userId: number): Observable<any> {
-    return this.httpClient.get(`/getuserdetail`);
+    return this.http.get(`/getuserdetail`);
   }
   getAllUserList(data: any): Observable<any> {
-    return this.httpClient.post(`/getuserlist`, data);
+    return this.http.post(`/getuserlist`, data);
   }
   updateUserDetail(data: any): Observable<any> {
-    return this.httpClient.put(`/updateuser`, data);
+    return this.http.put(`/updateuser`, data);
   }
 }

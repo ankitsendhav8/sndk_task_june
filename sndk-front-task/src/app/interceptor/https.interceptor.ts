@@ -29,8 +29,8 @@ export class HttpsInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const regExp = new RegExp(/assets/g, 'i');
     console.log('dsfsd  ');
+    const regExp = new RegExp(/assets/g, 'i');
     const newReq = request.clone({
       url: regExp.test(request.url)
         ? request.url
@@ -45,6 +45,7 @@ export class HttpsInterceptor implements HttpInterceptor {
       tap(
         (event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
+            console.log('sdfsdf');
             /* do stuff with response if you want*/
           }
         },
