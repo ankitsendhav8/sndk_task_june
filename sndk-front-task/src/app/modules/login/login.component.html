@@ -55,10 +55,13 @@
                   (keydown)="userService.disableSpace($event)"
                 />
                 <div class="input-group-append">
-                  <button (click)="showPassword = !showPassword">
+                  <span
+                    class="input-group-text"
+                    (click)="showPassword = !showPassword"
+                  >
                     <i *ngIf="showPassword" class="fa fa-eye-slash"></i>
                     <i *ngIf="!showPassword" class="fa fa-eye"></i>
-                  </button>
+                  </span>
                 </div>
               </div>
               <div

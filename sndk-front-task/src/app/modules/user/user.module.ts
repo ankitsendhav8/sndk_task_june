@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
+import { NgxPaginationModule } from 'ngx-pagination';
 
+import { SharedModule } from 'src/app/shared/shared.module';
 import { UserRoutingModule } from './user-routing.module';
 import { ListComponent } from './list/list.component';
 import { DetailsComponent } from './details/details.component';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [ListComponent, DetailsComponent],

@@ -22,6 +22,8 @@ export class LoginGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+    /* If user is logged in restrict user to use login and signup page  */
+
     if (this.userService.isUserLoggedIn()) {
       return false;
     } else {

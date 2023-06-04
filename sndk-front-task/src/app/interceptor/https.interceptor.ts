@@ -31,6 +31,7 @@ export class HttpsInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     const regExp = new RegExp(/assets/g, 'i');
     let newReq;
+    /* Exclude login and signup api url and for other url setting up header and add a token to send in API  */
     if (!this.isExcludedEndpoint(request.url)) {
       const token = this.localstorageService.getDetail(
         APP_CONSTANTS.AUTH_TOKEN
@@ -45,6 +46,7 @@ export class HttpsInterceptor implements HttpInterceptor {
         },
       });
     } else {
+      /* Login and signup api */
       newReq = request.clone({
         url: regExp.test(request.url)
           ? request.url
@@ -73,6 +75,7 @@ export class HttpsInterceptor implements HttpInterceptor {
       )
     );
   }
+  /* Checking which paths need to exclude  */
   private isExcludedEndpoint(url: string): boolean {
     return this.excludedEndpoints.some((endpoint) => url.endsWith(endpoint));
   }

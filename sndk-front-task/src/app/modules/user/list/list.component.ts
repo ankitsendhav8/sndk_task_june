@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { IUser } from 'src/app/constants/user';
 import { ApiService } from '../../../services/api.service';
 
@@ -83,6 +84,8 @@ export class ListComponent implements OnInit {
     // this.getAllUserList();
     this.loadItems();
   }
+
+  /* Getting all users list  */
   getAllUserList() {
     let data: any;
     if (this.searchText) {
@@ -94,8 +97,10 @@ export class ListComponent implements OnInit {
 
     this.apiService.getAllUserList(data).subscribe((response) => {
       console.log(response);
+      this.loadItems();
     });
   }
+
   changeStatus() {
     this.getAllUserList();
   }
@@ -104,10 +109,13 @@ export class ListComponent implements OnInit {
       this.getAllUserList();
     }
   }
+
   onPageChange(event: any) {
     this.currentPage = event;
     this.loadItems();
   }
+
+  /*Filter logic for listing implemented here on Page change  */
   loadItems(): void {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     this.pagedItems = this.allUser.slice(

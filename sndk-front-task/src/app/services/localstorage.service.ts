@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class LocalstorageService {
   constructor() {}
-
+  /* localstorage methods for store, remove, clear and get detail from local storage */
   setDetail(key: string, value: any): any {
     return localStorage.setItem(key, value);
   }

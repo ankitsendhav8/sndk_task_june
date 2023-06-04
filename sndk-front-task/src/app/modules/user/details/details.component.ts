@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { IUser } from 'src/app/constants/user';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -24,6 +25,7 @@ export class DetailsComponent implements OnInit {
       this.getUserDetail();
     }
   }
+  /* Get user details and if details not found redirecting to users list page*/
   getUserDetail() {
     this.apiService.getUserDetail(this.userId).subscribe((response: any) => {
       if (response && response.success) {

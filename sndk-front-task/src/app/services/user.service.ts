@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { LocalstorageService } from './localstorage.service';
-import { APP_CONSTANTS } from '../constants/app.constant';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+
+import { LocalstorageService } from './localstorage.service';
 import { ApiService } from './api.service';
+import { APP_CONSTANTS } from '../constants/app.constant';
 import { IUser } from '../constants/user';
 
 @Injectable({
@@ -14,7 +15,6 @@ export class UserService {
   public isloading: boolean = false;
   public userDetails!: IUser;
   notify = new Subject<{ option: string; value: any }>();
-  notify1 = new Subject<{ option: string; value: any }>();
   notifyObservable$ = this.notify.asObservable();
 
   constructor(
@@ -32,7 +32,7 @@ export class UserService {
       this.notify.next(data);
     }
   }
-
+  /* Check user is logged in or not*/
   isUserLoggedIn() {
     this.isLoggedIn = this.localstorageService.getDetail(
       APP_CONSTANTS.AUTH_TOKEN
@@ -41,6 +41,7 @@ export class UserService {
       : false;
     return this.isLoggedIn;
   }
+  /* Logout the user, in api side clearing the access key so can't use the token anymore */
   logout() {
     this.apiService.logout(this.userDetails['id']).subscribe((resp) => {
       if (resp && resp.success) {
@@ -51,12 +52,14 @@ export class UserService {
       }
     });
   }
+  /* Getting user details from local storage*/
   getUserDetail() {
     this.userDetails = JSON.parse(
       this.localstorageService.getDetail(APP_CONSTANTS.USER)
     );
     return this.userDetails;
   }
+  /* Global method for disble space in input box*/
   disableSpace(event: KeyboardEvent): void {
     if (event.code === 'Space') {
       event.preventDefault();

@@ -22,6 +22,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+    /* If user is logged in than allow him to use pages accessible for logged in user if not redirect them to login page */
     if (this.userService.isUserLoggedIn()) {
       return true;
     } else {
