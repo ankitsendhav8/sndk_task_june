@@ -54,7 +54,6 @@ export class ProfileComponent implements OnInit {
   onFileSelected(files: any): void {
     if (files.length > 0) {
       const fileToUpload = files.item(0);
-      console.log(fileToUpload);
 
       const reader = new FileReader();
 
@@ -95,7 +94,6 @@ export class ProfileComponent implements OnInit {
     this.apiService
       .updateUserDetail(this.userDetails.id, data)
       .subscribe((response) => {
-        console.log(response);
         this.isSubmitted = false;
         if (response && response.success) {
           this.localStorageService.setDetail(

@@ -62,7 +62,6 @@ class AuthController {
         loginDetails.email
       );
 
-      console.log('loginDetails', getUserDetailByEmail);
       if (getUserDetailByEmail && getUserDetailByEmail.length) {
         bcrypt.compare(
           loginDetails.password,

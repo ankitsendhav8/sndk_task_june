@@ -26,7 +26,6 @@ export class DetailsComponent implements OnInit {
   }
   getUserDetail() {
     this.apiService.getUserDetail(this.userId).subscribe((response: any) => {
-      console.log(response);
       if (response && response.success) {
         this.userDetail = response.data;
       } else {

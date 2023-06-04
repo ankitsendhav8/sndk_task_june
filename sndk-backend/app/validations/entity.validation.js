@@ -42,7 +42,6 @@ export default function createAuthenticationSchema(req, res, next) {
   const { error, value } = schema.validate(req.body, options);
 
   if (error) {
-    console.log('error ', error);
     res.json({
       success: 0,
       message: error.details[0].message,

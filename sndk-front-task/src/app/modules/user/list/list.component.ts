@@ -110,11 +110,9 @@ export class ListComponent implements OnInit {
   }
   loadItems(): void {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    console.log(startIndex);
     this.pagedItems = this.allUser.slice(
       startIndex,
       startIndex + this.itemsPerPage
     );
-    console.log(this.pagedItems);
   }
 }

@@ -19,7 +19,6 @@ const validateUser = (req, res, next) => {
 
   for (const rule of validationRules) {
     rule(req, res, (err) => {
-      console.log('error', err);
       if (err) {
         return res.status(200).json({ error: err.msg });
       }
