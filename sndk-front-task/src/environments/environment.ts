@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serviceUrl: 'http://192.168.30.191:3060',
+  serviceUrl: 'http://localhost:2000/',
 };
 
 /*

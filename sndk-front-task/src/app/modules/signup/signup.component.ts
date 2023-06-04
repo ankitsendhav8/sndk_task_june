@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
+import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +17,11 @@ export class SignupComponent implements OnInit {
 
   public passwordPattern =
     /^(?=.*[a-zA-Z0-9])(?=.*[@#$%^&+=])(?=.*[0-9]).{6,15}$/;
-  constructor(private fb: FormBuilder, private apiService: ApiService) {}
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
@@ -30,9 +36,13 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.signupForm.value);
-    this.apiService.signup(this.signupForm.value).subscribe((response) => {
-      console.log(response);
+    let data = this.signupForm.value;
+    data.fullName = data.firstName + ' ' + data.lastName;
+
+    this.apiService.signup(data).subscribe((response) => {
+      if (response && response.success) {
+        this.router.navigateByUrl('login');
+      }
     });
   }
 }

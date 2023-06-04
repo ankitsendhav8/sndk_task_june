@@ -39,21 +39,24 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.loginForm.value);
+    console.log();
+    let data = this.loginForm.value;
+    this.apiService.login(data).subscribe((response) => {
+      if (response && response.success) {
+        this.userService.isLoggedIn = true;
+        this.userService.notifyOther({ option: 'logout', value: true });
 
-    this.apiService.login(this.loginForm.value).subscribe((response) => {
-      console.log(response);
+        console.log('login response', response);
+        this.localStorageService.setDetail(
+          APP_CONSTANTS.USER,
+          JSON.stringify(response.data)
+        );
+        this.localStorageService.setDetail(
+          APP_CONSTANTS.AUTH_TOKEN,
+          response.data.access_token
+        );
+        this.router.navigateByUrl('home');
+      }
     });
-    this.localStorageService.setDetail(
-      APP_CONSTANTS.USER,
-      JSON.stringify(this.loginForm.value)
-    );
-    this.localStorageService.setDetail(
-      APP_CONSTANTS.AUTH_TOKEN,
-      'store token value'
-    );
-    this.router.navigateByUrl('home');
-    this.userService.isLoggedIn = true;
-    this.userService.notifyOther({ option: 'loggedIn', value: true });
   }
 }

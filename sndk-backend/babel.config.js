@@ -1,5 +1,6 @@
-/* eslint-disable import/no-extraneous-dependencies */
-require('@babel/register')({
+module.exports = {
+  only: ['./app/', 'index.js'],
+  ignore: ['node_modules/**/**', '.git/**/**'],
   presets: [
     [
       '@babel/preset-env',
@@ -14,7 +15,4 @@ require('@babel/register')({
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-proposal-object-rest-spread',
   ],
-});
-
-// Import the rest of our application.
-module.exports = require('./index');
+};

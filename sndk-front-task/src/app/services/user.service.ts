@@ -19,6 +19,7 @@ export class UserService {
     this.isUserLoggedIn();
   }
   notifyOther(data: { option: string; value: any }): void {
+    console.log('notify', data);
     if (data) {
       this.notify.next(data);
     }

@@ -14,18 +14,21 @@ import { Observable, catchError, of } from 'rxjs';
 export class ApiService {
   constructor(private http: HttpClient) {}
   login(user: IUser): Observable<any> {
-    return this.http.post(`/login`, user);
+    return this.http.post(`auth/login`, user);
+  }
+  logout(userId: number): Observable<any> {
+    return this.http.post(`auth/logout`, { id: userId });
   }
   signup(user: IUser): Observable<any> {
-    return this.http.post(`/signup`, user);
+    return this.http.post(`auth/signup`, user);
   }
   getUserDetail(userId: number): Observable<any> {
-    return this.http.get(`/getuserdetail`);
+    return this.http.get(`getuserdetail`);
   }
   getAllUserList(data: any): Observable<any> {
-    return this.http.post(`/getuserlist`, data);
+    return this.http.post(`getuserlist`, data);
   }
   updateUserDetail(data: any): Observable<any> {
-    return this.http.put(`/updateuser`, data);
+    return this.http.put(`updateuser`, data);
   }
 }
