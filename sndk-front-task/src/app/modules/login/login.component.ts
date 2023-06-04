@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { APP_CONSTANTS } from 'src/app/constants/app.constant';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
@@ -10,6 +10,7 @@ import { ApiService } from 'src/app/services/api.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
@@ -44,9 +45,9 @@ export class LoginComponent implements OnInit {
     this.apiService.login(data).subscribe((response) => {
       if (response && response.success) {
         this.userService.isLoggedIn = true;
-        this.userService.notifyOther({ option: 'logout', value: true });
+        this.router.navigateByUrl('home');
+        this.userService.notifyOther({ option: 'loggedin', value: true });
 
-        console.log('login response', response);
         this.localStorageService.setDetail(
           APP_CONSTANTS.USER,
           JSON.stringify(response.data)
@@ -55,7 +56,6 @@ export class LoginComponent implements OnInit {
           APP_CONSTANTS.AUTH_TOKEN,
           response.data.access_token
         );
-        this.router.navigateByUrl('home');
       }
     });
   }

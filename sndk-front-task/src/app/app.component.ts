@@ -10,11 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   public isLoggedIn: boolean = false;
-  constructor(
-    public userService: UserService,
-    private router: Router,
-    private localstorageService: LocalstorageService
-  ) {}
+  constructor(public userService: UserService) {}
 
   ngOnInit() {
     this.isLoggedIn = this.userService.isUserLoggedIn();

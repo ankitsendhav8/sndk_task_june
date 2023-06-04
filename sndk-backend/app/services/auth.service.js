@@ -8,7 +8,7 @@ class AuthService {
   };
 
   getUserDetailByEmail = (email) => {
-    console.log('email',email)
+    console.log('email', email);
     return db('users').select('*').where('vEmail', email);
   };
   getUserDetailById = (id) => {

@@ -92,9 +92,9 @@ class AuthController {
               let tokendata = {
                 id: getUserDetailById[0].id,
                 email: getUserDetailById[0].vEmail,
-                first_name: getUserDetailById[0].vFirstName,
-                last_name: getUserDetailById[0].vLastName,
-                full_name: getUserDetailById[0].vFullName,
+                firstName: getUserDetailById[0].vFirstName,
+                lastName: getUserDetailById[0].vLastName,
+                fullName   : getUserDetailById[0].vFullName,
                 status: getUserDetailById[0].eStatus,
                 access_key: getUserDetailById[0].vAccessKey,
               };

@@ -17,8 +17,7 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.allUser = [
       {
-        name: 'string tb data',
-        userId: 15,
+        id: 15,
         firstName: 'string tb data',
         lastName: 'string tb data',
         profileImage: 'string tb data',
@@ -27,8 +26,7 @@ export class ListComponent implements OnInit {
         status: 'active',
       },
       {
-        name: 'string tb data',
-        userId: 15,
+        id: 15,
         firstName: 'string tb data',
         lastName: 'string tb data',
         profileImage: 'string tb data',
@@ -37,8 +35,7 @@ export class ListComponent implements OnInit {
         status: 'inactive',
       },
       {
-        name: 'string tb data',
-        userId: 15,
+        id: 15,
         firstName: 'string tb data',
         lastName: 'string tb data',
         profileImage: 'string tb data',
@@ -47,8 +44,7 @@ export class ListComponent implements OnInit {
         status: 'active',
       },
       {
-        name: 'string tb data',
-        userId: 15,
+        id: 15,
         firstName: 'string tb data',
         lastName: 'string tb data',
         profileImage: 'string tb data',
@@ -57,8 +53,7 @@ export class ListComponent implements OnInit {
         status: 'inactive',
       },
       {
-        name: 'string tb data',
-        userId: 15,
+        id: 15,
         firstName: 'string tb data',
         lastName: 'string tb data',
         profileImage: 'string tb data',
@@ -67,8 +62,7 @@ export class ListComponent implements OnInit {
         status: 'active',
       },
       {
-        name: 'string tb data',
-        userId: 15,
+        id: 15,
         firstName: 'string tb data',
         lastName: 'string tb data',
         profileImage: 'string tb data',

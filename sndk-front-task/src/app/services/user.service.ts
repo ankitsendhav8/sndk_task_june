@@ -3,23 +3,29 @@ import { LocalstorageService } from './localstorage.service';
 import { APP_CONSTANTS } from '../constants/app.constant';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { ApiService } from './api.service';
+import { IUser } from '../constants/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   public isLoggedIn: boolean = false;
+  public userDetails!: IUser;
   notify = new Subject<{ option: string; value: any }>();
   notifyObservable$ = this.notify.asObservable();
 
   constructor(
     private localstorageService: LocalstorageService,
+    private apiService: ApiService,
     private router: Router
   ) {
     this.isUserLoggedIn();
+    this.userDetails = JSON.parse(
+      this.localstorageService.getDetail(APP_CONSTANTS.USER)
+    );
   }
   notifyOther(data: { option: string; value: any }): void {
-    console.log('notify', data);
     if (data) {
       this.notify.next(data);
     }
@@ -34,12 +40,19 @@ export class UserService {
     return this.isLoggedIn;
   }
   logout() {
-    this.isLoggedIn = false;
-    this.router.navigateByUrl('login');
-    this.localstorageService.clearAllDetail();
-    this.notifyOther({ option: 'logout', value: true });
+    this.apiService.logout(this.userDetails['id']).subscribe((resp) => {
+      if (resp && resp.success) {
+        this.notifyOther({ option: 'logout', value: true });
+        this.isLoggedIn = false;
+        this.router.navigateByUrl('login');
+        this.localstorageService.clearAllDetail();
+      }
+    });
   }
   getUserDetail() {
-    return JSON.parse(this.localstorageService.getDetail(APP_CONSTANTS.USER));
+    this.userDetails = JSON.parse(
+      this.localstorageService.getDetail(APP_CONSTANTS.USER)
+    );
+    return this.userDetails;
   }
 }

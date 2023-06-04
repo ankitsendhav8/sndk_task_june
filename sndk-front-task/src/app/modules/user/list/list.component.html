@@ -61,7 +61,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let user of allUser; let i = index">
-                <th scope="row" routerLink="{{ user?.userId }}">{{ i }}</th>
+                <th scope="row" routerLink="{{ user?.id }}">{{ i }}</th>
                 <td><img [src]="user.profileImage" alt="profile image" /></td>
                 <td>{{ user.firstName | titlecase }}</td>
                 <td>{{ user.lastName | titlecase }}</td>

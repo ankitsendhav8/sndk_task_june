@@ -1,0 +1,34 @@
+.navbar-nav {
+  .nav-item {
+    margin: 0px 10px;
+    color: black;
+    padding: 5px 15px;
+    font-size: 15px;
+
+    cursor: pointer;
+    &.active {
+      font-size: 16px;
+      border-radius: 10px;
+      color: rgb(107, 107, 240);
+    }
+    &.header-btn {
+      border-radius: 10px;
+      color: white;
+    }
+  }
+}
+.navbar-brand {
+  .logo-image {
+    height: 50px;
+  }
+}
+.userName {
+  margin: 0px 30px;
+  font-size: 25px;
+  font-weight: 600;
+  b {
+    color: rgb(122, 193, 250);
+    font-weight: 500;
+    font-size: 20px;
+  }
+}

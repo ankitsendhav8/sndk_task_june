@@ -29,8 +29,7 @@ export class DetailsComponent implements OnInit {
       console.log(response);
     });
     this.userDetail = {
-      name: 'string tb data',
-      userId: 15,
+      id: 15,
       firstName: 'string tb data',
       lastName: 'string tb data',
       profileImage: '/assets/image/sndklogo.png',
