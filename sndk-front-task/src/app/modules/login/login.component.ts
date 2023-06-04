@@ -40,10 +40,13 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log();
+    this.userService.isLoading = true;
     let data = this.loginForm.value;
     this.apiService.login(data).subscribe((response) => {
       if (response && response.success) {
+        setTimeout(() => {
+          this.userService.isLoading = false;
+        }, 2000);
         this.userService.isLoggedIn = true;
         this.router.navigateByUrl('home');
         this.userService.notifyOther({ option: 'loggedin', value: true });

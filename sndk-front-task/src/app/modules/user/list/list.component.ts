@@ -12,6 +12,9 @@ export class ListComponent implements OnInit {
   public searchText: string = '';
   public selectedStatus: string = '';
   public allStatus: { label: string; value: string }[] = [];
+  public currentPage: number = 1;
+  public itemsPerPage: number = 10;
+  public totalUsers: number = 100;
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
@@ -99,5 +102,8 @@ export class ListComponent implements OnInit {
       this.getAllUserList();
     }
     console.log('search text ', this.searchText);
+  }
+  onPageChange(event: any) {
+    console.log(event);
   }
 }

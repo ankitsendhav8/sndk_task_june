@@ -18,12 +18,12 @@ import { APP_CONSTANTS } from '../constants/app.constant';
 @Injectable()
 export class HttpsInterceptor implements HttpInterceptor {
   public token: string = '';
+  private readonly excludedEndpoints: string[] = ['/login', '/signup'];
+
   constructor(
     private userService: UserService,
     private localstorageService: LocalstorageService
-  ) {
-    this.token = this.localstorageService.getDetail(APP_CONSTANTS.AUTH_TOKEN);
-  }
+  ) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -31,16 +31,28 @@ export class HttpsInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     console.log('dsfsd  ');
     const regExp = new RegExp(/assets/g, 'i');
-    const newReq = request.clone({
-      url: regExp.test(request.url)
-        ? request.url
-        : `${environment.serviceUrl}${request.url}`,
-    });
-    const modifiedRequest = request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${this.token}`,
-      },
-    });
+    let newReq;
+    if (!this.isExcludedEndpoint(request.url)) {
+      const token = this.localstorageService.getDetail(
+        APP_CONSTANTS.AUTH_TOKEN
+      );
+
+      newReq = request.clone({
+        url: regExp.test(request.url)
+          ? request.url
+          : `${environment.serviceUrl}${request.url}`,
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } else {
+      newReq = request.clone({
+        url: regExp.test(request.url)
+          ? request.url
+          : `${environment.serviceUrl}${request.url}`,
+      });
+    }
+
     return next.handle(newReq).pipe(
       tap(
         (event: HttpEvent<any>) => {
@@ -62,5 +74,8 @@ export class HttpsInterceptor implements HttpInterceptor {
         }
       )
     );
+  }
+  private isExcludedEndpoint(url: string): boolean {
+    return this.excludedEndpoints.some((endpoint) => url.endsWith(endpoint));
   }
 }

@@ -1,3 +1,8 @@
+<ngb-progressbar
+  *ngIf="userService.isLoading"
+  type="indeterminate"
+></ngb-progressbar>
+{{ userService.isLoading }}
 <div class="container-fluid">
   <div class="row">
     <div class="col-12 nav-bar-header">

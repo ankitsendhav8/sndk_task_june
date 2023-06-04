@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -7,6 +7,7 @@ import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.c
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpsInterceptor } from './interceptor/https.interceptor';
 import { SharedModule } from './shared/shared.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
@@ -14,9 +15,11 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    NgxPaginationModule,
     NgbModule,
     SharedModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
   providers: [
     {

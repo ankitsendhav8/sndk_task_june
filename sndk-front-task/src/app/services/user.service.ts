@@ -11,6 +11,7 @@ import { IUser } from '../constants/user';
 })
 export class UserService {
   public isLoggedIn: boolean = false;
+  public isLoading: boolean = false;
   public userDetails!: IUser;
   notify = new Subject<{ option: string; value: any }>();
   notifyObservable$ = this.notify.asObservable();
