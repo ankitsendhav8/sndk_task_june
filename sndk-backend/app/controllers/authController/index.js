@@ -3,7 +3,6 @@
 import { Router } from 'express';
 import AuthController from './auth.controller';
 import createAuthenticationSchema from '../../validations/entity.validation';
-// import validateUser from '../../middlewares/validation.middleware';
 
 const router = Router();
 

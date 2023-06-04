@@ -1,5 +1,7 @@
 import Joi from 'joi';
 
+/* Validating signup and login fields */
+
 export default function createAuthenticationSchema(req, res, next) {
   const signupSchema = {
     firstName: Joi.string().required().min(3).max(20).messages({

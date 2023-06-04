@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 03, 2023 at 09:31 PM
+-- Generation Time: Jun 04, 2023 at 07:13 PM
 -- Server version: 8.0.21
 -- PHP Version: 7.3.21
 
@@ -30,16 +30,18 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `vFirstName` varchar(50) NOT NULL,
-  `vLastName` varchar(50) NOT NULL,
-  `vFullName` varchar(50) NOT NULL,
+  `vFirstName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `vLastName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `vFullName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `vEmail` varchar(100) NOT NULL,
-  `vPassword` varchar(100) NOT NULL,
+  `vPassword` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `vProfileImage` varchar(255) DEFAULT NULL,
   `dtCreatedAt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `dtModifiedAt` timestamp NULL DEFAULT NULL,
   `eStatus` enum('active','inactive') NOT NULL DEFAULT 'active',
-  PRIMARY KEY (`id`)
+  `vAccessKey` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `vEmail` (`vEmail`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 COMMIT;
 

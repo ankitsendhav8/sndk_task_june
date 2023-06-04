@@ -24,7 +24,7 @@ class AuthController {
             vFirstName: data.firstName,
             vLastName: data.lastName,
             vFullName: data.fullName,
-            dtCreatedAt: new Date(),
+            dtCreatedAt: await GeneralFunctionService.getCurrentDateTime(),
             eStatus: 'Active',
             vEmail: data.email,
             vPassword: hash,
@@ -93,7 +93,7 @@ class AuthController {
                 email: getUserDetailById[0].vEmail,
                 firstName: getUserDetailById[0].vFirstName,
                 lastName: getUserDetailById[0].vLastName,
-                fullName   : getUserDetailById[0].vFullName,
+                fullName: getUserDetailById[0].vFullName,
                 status: getUserDetailById[0].eStatus,
                 access_key: getUserDetailById[0].vAccessKey,
               };

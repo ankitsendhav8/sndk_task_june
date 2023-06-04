@@ -21,12 +21,12 @@ export class ApiService {
     return this.http.get(`user/${userId}`);
   }
   getAllUserList(data: any): Observable<any> {
-    return this.http.post(`getuserlist`, data);
+    return this.http.post(`user/list`, data);
   }
   updateUserDetail(userId: number, data: any): Observable<any> {
     return this.http.put(`user/${userId}`, data);
   }
-  updateUserProfileImage(data: any): Observable<any> {
-    return this.http.put(`updateuser`, data);
+  updateUserProfileImage(userId: number, data: any): Observable<any> {
+    return this.http.post(`upload/${userId}`, data);
   }
 }

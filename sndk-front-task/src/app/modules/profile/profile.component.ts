@@ -78,12 +78,12 @@ export class ProfileComponent implements OnInit {
         let formData = new FormData();
         formData.append('profileImage', this.profileImageData);
         this.apiService
-          .updateUserProfileImage(formData)
+          .updateUserProfileImage(this.userDetails.id, formData)
           .subscribe((resp: any) => {
             console.log(resp);
             this.isSubmitted = false;
             if (resp && resp.success) {
-              data.profileImage = resp.data.image;
+              data.profileImage = resp.data.path;
               this.updateUserDetails(data);
             }
           });

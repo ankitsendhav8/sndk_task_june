@@ -14,75 +14,17 @@ export class ListComponent implements OnInit {
   public selectedStatus: string = '';
   public allStatus: { label: string; value: string }[] = [];
   public currentPage: number = 1;
-  public itemsPerPage: number = 2;
+  public itemsPerPage: number = 5;
   public totalUsers!: number;
   pagedItems: IUser[] = [];
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.allUser = [
-      {
-        id: 7,
-        firstName: 'string tb data',
-        lastName: 'string tb data',
-        profileImage: 'string tb data',
-        email: 'string tb data',
-        fullName: 'string tb data',
-        status: 'active',
-      },
-      {
-        id: 2,
-        firstName: 'string tb data',
-        lastName: 'string tb data',
-        profileImage: 'string tb data',
-        email: 'string tb data',
-        fullName: 'string tb data',
-        status: 'inactive',
-      },
-      {
-        id: 3,
-        firstName: 'string tb data',
-        lastName: 'string tb data',
-        profileImage: 'string tb data',
-        email: 'string tb data',
-        fullName: 'string tb data',
-        status: 'active',
-      },
-      {
-        id: 4,
-        firstName: 'string tb data',
-        lastName: 'string tb data',
-        profileImage: 'string tb data',
-        email: 'string tb data',
-        fullName: 'string tb data',
-        status: 'inactive',
-      },
-      {
-        id: 15,
-        firstName: 'string tb data',
-        lastName: 'string tb data',
-        profileImage: 'string tb data',
-        email: 'string tb data',
-        fullName: 'string tb data',
-        status: 'active',
-      },
-      {
-        id: 15,
-        firstName: 'string tb data',
-        lastName: 'string tb data',
-        profileImage: 'string tb data',
-        email: 'string tb data',
-        fullName: 'string tb data',
-        status: 'active',
-      },
-    ];
-    this.totalUsers = this.allUser.length;
     this.allStatus = [
       { label: 'Active', value: 'active' },
       { label: 'Inactive', value: 'inactive' },
     ];
-    // this.getAllUserList();
-    this.loadItems();
+    this.getAllUserList();
   }
 
   /* Getting all users list  */
@@ -96,17 +38,34 @@ export class ListComponent implements OnInit {
     }
 
     this.apiService.getAllUserList(data).subscribe((response) => {
-      console.log(response);
-      this.loadItems();
+      if (response && response.data) {
+        this.allUser = response.data;
+        this.totalUsers = this.allUser.length;
+        this.loadItems();
+      }
     });
   }
 
   changeStatus() {
-    this.getAllUserList();
+    this.pagedItems = this.allUser.filter(
+      (res) => res.status === this.selectedStatus
+    );
+    this.totalUsers = this.pagedItems.length;
+    this.currentPage = 1;
   }
   searchUser() {
     if (this.searchText.length >= 3) {
-      this.getAllUserList();
+      this.pagedItems = this.allUser.filter(
+        (user) =>
+          user.fullName.toLowerCase().includes(this.searchText.toLowerCase()) ||
+          user.firstName
+            .toLowerCase()
+            .includes(this.searchText.toLowerCase()) ||
+          user.email.toLowerCase().includes(this.searchText.toLowerCase()) ||
+          user.lastName.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+      this.totalUsers = this.pagedItems.length;
+      this.currentPage = 1;
     }
   }
 

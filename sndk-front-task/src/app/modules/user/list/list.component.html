@@ -78,7 +78,13 @@
                 >
                   {{ user.id }}
                 </th>
-                <td><img [src]="user.profileImage" alt="profile image" /></td>
+                <td>
+                  <img
+                    class="user-list-image"
+                    [src]="user.profileImage"
+                    alt="profile image"
+                  />
+                </td>
                 <td>{{ user.firstName | titlecase }}</td>
                 <td>{{ user.lastName | titlecase }}</td>
                 <td>{{ user.fullName | titlecase }}</td>

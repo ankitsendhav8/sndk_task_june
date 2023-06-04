@@ -66,26 +66,26 @@ class UserController {
     try {
       const userId = req.params.id;
       let userDetails = req.body;
-
       if (req.headers && req.headers.authorization) {
         let isTokenVerified = await GeneralFunctionService.verifyMyToken(
           req.headers.authorization.split(' ')[1],
           userId
         );
         if (isTokenVerified) {
-          let data_of_update = {
+          let data_for_update = {
             vFirstName: userDetails.firstName,
             vLastName: userDetails.lastName,
             vFullName: userDetails.fullName,
             vEmail: userDetails.email.toLowerCase(),
             eStatus: userDetails.status,
+            vProfileImage: userDetails.profileImage,
           };
 
-          data_of_update.dtModifiedAt =
+          data_for_update.dtModifiedAt =
             await GeneralFunctionService.getCurrentDateTime();
 
-          let updating_user_data = await UserService.updateUserDetails(
-            data_of_update,
+          let updati_user_data = await UserService.updateUserDetails(
+            data_for_update,
             userId
           );
           let result = await UserService.getUserDetails(userId);
@@ -98,15 +98,71 @@ class UserController {
               profileImage: result[0].vProfileImage || '',
               status: result[0].eStatus,
               email: result[0].vEmail,
-              createdAt: result[0].dtCreatedAt,
+              createdAt: await GeneralFunctionService.changeDate(
+                result[0].dtCreatedAt
+              ),
             };
-            finalResponse.date_of_birth =
-              await GeneralFunctionService.changeDate(result[0].dDateOfBirth);
+
             res.status(200).json({
               success: 1,
               message: 'User details updated successfully',
               data: finalResponse,
             });
+          } else {
+            res.status(200).json({
+              success: 0,
+              message: 'Something went wrong,please try again',
+              data: result,
+            });
+          }
+        } else {
+          res.status(400).json({
+            success: 0,
+            message: 'Unauthorized User ',
+          });
+        }
+      } else {
+        res.status(200).json({
+          success: 0,
+          message: 'Token not found',
+        });
+      }
+    } catch (err) {
+      res.status(500).json({
+        success: 0,
+        message: err.message || 'Something went wrong please try again',
+      });
+    }
+  };
+
+  list = async (req, res, next) => {
+    try {
+      if (req.headers && req.headers.authorization) {
+        let isTokenVerified = await GeneralFunctionService.verifyToken(
+          req.headers.authorization.split(' ')[1]
+        );
+        if (isTokenVerified) {
+          let result = await UserService.list();
+          let finalResponse = [];
+          if (result && result.length) {
+            finalResponse = result.map((res) => ({
+              id: res.id,
+              firstName: res.vFirstName,
+              lastName: res.vLastName,
+              fullName: res.vFullName,
+              email: res.vEmail,
+              profileImage: res.vProfileImage,
+              status: res.eStatus,
+              createdAt: res.dtCreatedAt,
+            }));
+
+            if (finalResponse && finalResponse.length) {
+              res.status(200).json({
+                success: 1,
+                message: 'User details updated successfully',
+                data: finalResponse,
+              });
+            }
           } else {
             res.status(200).json({
               success: 0,

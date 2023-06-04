@@ -9,5 +9,6 @@ const router = Router();
 
 router.get('/:id', UserController.getDetails);
 router.put('/:id', UserController.updateDetails);
+router.post('/list', UserController.list);
 
 export default router;

@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 const knex = require('knex');
 
+/* knex query generator implementation */
 const db = knex({
   client: process.env.DB_CLIENT,
   connection: {

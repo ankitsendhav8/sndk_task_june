@@ -15,7 +15,9 @@ class UserService {
       })
       .update(data);
   };
-
+  list() {
+    return db('users').select();
+  }
 }
 
 export default new UserService();
