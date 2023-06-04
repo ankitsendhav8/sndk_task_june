@@ -38,6 +38,7 @@
                 class="form-control"
                 minlength="3"
                 maxlength="50"
+                (keydown)="userService.disableSpace($event)"
               />
               <div
                 *ngIf="
@@ -71,6 +72,7 @@
                 class="form-control"
                 minlength="3"
                 maxlength="50"
+                (keydown)="userService.disableSpace($event)"
               />
               <div
                 *ngIf="
@@ -101,25 +103,19 @@
                 formControlName="email"
                 class="form-control"
                 maxlength="100"
+                readonly
               />
-              <div
-                *ngIf="
-                  isSubmitted && emailControl?.invalid && emailControl?.touched
-                "
+            </div>
+            <div class="form-group">
+              <label for="email"
+                >Status<span class="text-danger font-weight-bold"
+                  >*</span
+                ></label
               >
-                <div
-                  *ngIf="emailControl?.errors?.['required']"
-                  class="text-danger error-message"
-                >
-                  Email is required.
-                </div>
-                <div
-                  *ngIf="emailControl?.errors?.['pattern']"
-                  class="text-danger error-message"
-                >
-                  Please enter a valid email address.
-                </div>
-              </div>
+              <select formControlName="status" class="form-control">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
             </div>
           </form>
           <div class="row">

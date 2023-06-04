@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IUser } from 'src/app/constants/user';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -14,7 +14,8 @@ export class DetailsComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -26,15 +27,11 @@ export class DetailsComponent implements OnInit {
   getUserDetail() {
     this.apiService.getUserDetail(this.userId).subscribe((response: any) => {
       console.log(response);
+      if (response && response.success) {
+        this.userDetail = response.data;
+      } else {
+        this.router.navigateByUrl('user');
+      }
     });
-    this.userDetail = {
-      id: 15,
-      firstName: 'string tb data',
-      lastName: 'string tb data',
-      profileImage: '/assets/image/sndklogo.png',
-      email: 'string tb data',
-      fullName: 'string tb data',
-      status: 'active',
-    };
   }
 }

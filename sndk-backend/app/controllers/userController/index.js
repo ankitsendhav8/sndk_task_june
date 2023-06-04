@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/named */
 /* eslint-disable import/no-named-as-default */
 import { Router } from 'express';

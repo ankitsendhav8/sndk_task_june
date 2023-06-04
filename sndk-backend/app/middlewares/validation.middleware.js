@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-restricted-syntax */
-import { body, validationResult } from 'express-validator';
+import { body } from 'express-validator';
 
 // Custom middleware function for validating user input
 const validateUser = (req, res, next) => {

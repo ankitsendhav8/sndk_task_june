@@ -4,8 +4,9 @@
       <div class="card-header">
         <h5 class="text-center">User detail</h5>
       </div>
-      <div class="card-body">
+      <div class="card-body text-center" *ngIf="userDetail">
         <img
+          *ngIf="userDetail && userDetail.profileImage"
           class="user-profile-image"
           [src]="
             userDetail.profileImage

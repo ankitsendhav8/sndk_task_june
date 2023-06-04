@@ -21,7 +21,7 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.allUser = [
       {
-        id: 1,
+        id: 7,
         firstName: 'string tb data',
         lastName: 'string tb data',
         profileImage: 'string tb data',

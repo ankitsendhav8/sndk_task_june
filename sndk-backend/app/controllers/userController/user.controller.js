@@ -11,13 +11,11 @@ class UserController {
       const userId = req.params.id;
 
       if (req.headers && req.headers.authorization) {
-        let isTokenVerified = await GeneralFunctionService.verifyMyToken(
-          req.headers.authorization.split(' ')[1],
-          userId
+        let isTokenVerified = await GeneralFunctionService.verifyToken(
+          req.headers.authorization.split(' ')[1]
         );
         if (isTokenVerified) {
           let result = await UserService.getUserDetails(userId);
-          console.log('result ', result);
           if (result && result.length) {
             let finalResponse = {
               id: result[0].id,
@@ -27,10 +25,11 @@ class UserController {
               profileImage: result[0].vProfileImage || '',
               status: result[0].eStatus,
               email: result[0].vEmail,
-              createdAt: result[0].dtCreatedAt,
+              createdAt: await GeneralFunctionService.changeDate(
+                result[0].dtCreatedAt
+              ),
             };
-            finalResponse.date_of_birth =
-              await GeneralFunctionService.changeDate(result[0].dDateOfBirth);
+
             res.status(200).json({
               success: 1,
               message: 'User details found successfully',
@@ -79,6 +78,7 @@ class UserController {
             vLastName: userDetails.lastName,
             vFullName: userDetails.fullName,
             vEmail: userDetails.email.toLowerCase(),
+            eStatus: userDetails.status,
           };
 
           data_of_update.dtModifiedAt =

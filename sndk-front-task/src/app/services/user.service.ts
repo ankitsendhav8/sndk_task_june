@@ -57,7 +57,9 @@ export class UserService {
     );
     return this.userDetails;
   }
-  enableLoader(status: boolean) {
-    this.isloading = status;
+  disableSpace(event: KeyboardEvent): void {
+    if (event.code === 'Space') {
+      event.preventDefault();
+    }
   }
 }

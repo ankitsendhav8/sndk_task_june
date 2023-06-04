@@ -23,13 +23,13 @@ export class ApiService {
     return this.http.post(`auth/signup`, user);
   }
   getUserDetail(userId: number): Observable<any> {
-    return this.http.get(`getuserdetail`);
+    return this.http.get(`user/${userId}`);
   }
   getAllUserList(data: any): Observable<any> {
     return this.http.post(`getuserlist`, data);
   }
-  updateUserDetail(data: any): Observable<any> {
-    return this.http.put(`updateuser`, data);
+  updateUserDetail(userId: number, data: any): Observable<any> {
+    return this.http.put(`user/${userId}`, data);
   }
   updateUserProfileImage(data: any): Observable<any> {
     return this.http.put(`updateuser`, data);

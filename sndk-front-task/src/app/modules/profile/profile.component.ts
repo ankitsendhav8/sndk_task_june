@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { APP_CONSTANTS } from 'src/app/constants/app.constant';
 import { IUser } from 'src/app/constants/user';
 import { ApiService } from 'src/app/services/api.service';
+import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -23,7 +25,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
-    private userService: UserService
+    public userService: UserService,
+    private localStorageService: LocalstorageService
   ) {}
 
   ngOnInit(): void {
@@ -31,6 +34,7 @@ export class ProfileComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
+      status: ['active', Validators.required],
     });
     this.userDetails = this.userService.getUserDetail();
     if (this.userDetails) {
@@ -88,9 +92,22 @@ export class ProfileComponent implements OnInit {
     }
   }
   updateUserDetails(data: any) {
-    this.apiService.updateUserDetail(data).subscribe((response) => {
-      console.log(response);
-      this.isSubmitted = false;
-    });
+    this.apiService
+      .updateUserDetail(this.userDetails.id, data)
+      .subscribe((response) => {
+        console.log(response);
+        this.isSubmitted = false;
+        if (response && response.success) {
+          this.localStorageService.setDetail(
+            APP_CONSTANTS.USER,
+            JSON.stringify(response.data)
+          );
+          this.userService.userDetails = response.data;
+          this.userService.notifyOther({
+            option: 'profileUpdate',
+            value: true,
+          });
+        }
+      });
   }
 }

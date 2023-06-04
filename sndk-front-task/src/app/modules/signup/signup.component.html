@@ -20,6 +20,7 @@
                 class="form-control"
                 minlength="3"
                 maxlength="50"
+                (keydown)="userService.disableSpace($event)"
               />
               <div
                 *ngIf="
@@ -53,6 +54,7 @@
                 class="form-control"
                 minlength="3"
                 maxlength="50"
+                (keydown)="userService.disableSpace($event)"
               />
               <div
                 *ngIf="
@@ -83,6 +85,7 @@
                 formControlName="email"
                 class="form-control"
                 maxlength="100"
+                (keydown)="userService.disableSpace($event)"
               />
               <div
                 *ngIf="
@@ -116,6 +119,7 @@
                   formControlName="password"
                   class="form-control"
                   maxlength="15"
+                  (keydown)="userService.disableSpace($event)"
                 />
                 <div class="input-group-append">
                   <button (click)="showPassword = !showPassword">

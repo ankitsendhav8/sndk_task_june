@@ -15,6 +15,7 @@ class UserService {
       })
       .update(data);
   };
+
 }
 
 export default new UserService();
