@@ -94,14 +94,12 @@ export class ListComponent implements OnInit {
     });
   }
   changeStatus() {
-    console.log(this.selectedStatus);
     this.getAllUserList();
   }
   searchUser() {
     if (this.searchText.length >= 3) {
       this.getAllUserList();
     }
-    console.log('search text ', this.searchText);
   }
   onPageChange(event: any) {
     console.log(event);

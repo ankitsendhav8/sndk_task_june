@@ -15,6 +15,7 @@ import { ApiService } from 'src/app/services/api.service';
 export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
   public isSubmitted: boolean = false;
+  public showPassword: boolean = false;
   public emailPattern =
     /^(("[\w-\s]+")|([\w-\+]+(?:\.[\w-\+]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/;
 
@@ -38,28 +39,33 @@ export class LoginComponent implements OnInit {
       ],
     });
   }
-
+  get emailControl() {
+    return this.loginForm.get('email');
+  }
+  get passwordControl() {
+    return this.loginForm.get('password');
+  }
   onSubmit() {
-    this.userService.isLoading = true;
-    let data = this.loginForm.value;
-    this.apiService.login(data).subscribe((response) => {
-      if (response && response.success) {
-        setTimeout(() => {
-          this.userService.isLoading = false;
-        }, 2000);
-        this.userService.isLoggedIn = true;
-        this.router.navigateByUrl('home');
-        this.userService.notifyOther({ option: 'loggedin', value: true });
+    this.isSubmitted = true;
+    if (this.loginForm.valid) {
+      let data = this.loginForm.value;
+      this.apiService.login(data).subscribe((response) => {
+        this.isSubmitted = false;
+        if (response && response.success) {
+          this.userService.isLoggedIn = true;
+          this.router.navigateByUrl('home');
+          this.userService.notifyOther({ option: 'loggedin', value: true });
 
-        this.localStorageService.setDetail(
-          APP_CONSTANTS.USER,
-          JSON.stringify(response.data)
-        );
-        this.localStorageService.setDetail(
-          APP_CONSTANTS.AUTH_TOKEN,
-          response.data.access_token
-        );
-      }
-    });
+          this.localStorageService.setDetail(
+            APP_CONSTANTS.USER,
+            JSON.stringify(response.data)
+          );
+          this.localStorageService.setDetail(
+            APP_CONSTANTS.AUTH_TOKEN,
+            response.data.access_token
+          );
+        }
+      });
+    }
   }
 }

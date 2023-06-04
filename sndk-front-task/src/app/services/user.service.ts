@@ -11,9 +11,10 @@ import { IUser } from '../constants/user';
 })
 export class UserService {
   public isLoggedIn: boolean = false;
-  public isLoading: boolean = false;
+  public isloading: boolean = false;
   public userDetails!: IUser;
   notify = new Subject<{ option: string; value: any }>();
+  notify1 = new Subject<{ option: string; value: any }>();
   notifyObservable$ = this.notify.asObservable();
 
   constructor(
@@ -55,5 +56,8 @@ export class UserService {
       this.localstorageService.getDetail(APP_CONSTANTS.USER)
     );
     return this.userDetails;
+  }
+  enableLoader(status: boolean) {
+    this.isloading = status;
   }
 }

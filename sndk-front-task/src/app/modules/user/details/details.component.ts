@@ -19,7 +19,6 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.activatedRoute.snapshot.params['id'];
-    console.log('user id', this.userId);
     if (this.userId) {
       this.getUserDetail();
     }

@@ -21,10 +21,24 @@
                 minlength="3"
                 maxlength="50"
               />
-              <!-- <div *ngIf="email?.invalid" class="error">
-              <div *ngIf="email?.errors?.['required']">Enter email.</div>
-              <div *ngIf="email?.errors?.['pattern']">Enter valid email.</div>
-            </div> -->
+              <div
+                *ngIf="
+                  isSubmitted && fNameControl?.invalid && fNameControl?.touched
+                "
+              >
+                <div
+                  *ngIf="fNameControl?.errors?.['required']"
+                  class="text-danger error-message"
+                >
+                  First name is required.
+                </div>
+                <div
+                  *ngIf="fNameControl?.errors?.['minlength']"
+                  class="text-danger error-message"
+                >
+                  First name should have atleast 3 characters.
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <label for="lastName"
@@ -40,10 +54,24 @@
                 minlength="3"
                 maxlength="50"
               />
-              <!-- <div *ngIf="email?.invalid" class="error">
-              <div *ngIf="email?.errors?.['required']">Enter email.</div>
-              <div *ngIf="email?.errors?.['pattern']">Enter valid email.</div>
-            </div> -->
+              <div
+                *ngIf="
+                  isSubmitted && lNameControl?.invalid && lNameControl?.touched
+                "
+              >
+                <div
+                  *ngIf="lNameControl?.errors?.['required']"
+                  class="text-danger error-message"
+                >
+                  Last name is required.
+                </div>
+                <div
+                  *ngIf="lNameControl?.errors?.['minlength']"
+                  class="text-danger error-message"
+                >
+                  Last name should have atleast 3 characters.
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <label for="email"
@@ -56,10 +84,24 @@
                 class="form-control"
                 maxlength="100"
               />
-              <!-- <div *ngIf="email?.invalid" class="error">
-              <div *ngIf="email?.errors?.['required']">Enter email.</div>
-              <div *ngIf="email?.errors?.['pattern']">Enter valid email.</div>
-            </div> -->
+              <div
+                *ngIf="
+                  isSubmitted && emailControl?.invalid && emailControl?.touched
+                "
+              >
+                <div
+                  *ngIf="emailControl?.errors?.['required']"
+                  class="text-danger error-message"
+                >
+                  Email is required.
+                </div>
+                <div
+                  *ngIf="emailControl?.errors?.['pattern']"
+                  class="text-danger error-message"
+                >
+                  Please enter a valid email address.
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <label for="password"
@@ -67,24 +109,41 @@
                   >*</span
                 ></label
               >
-              <input
-                type="password"
-                id="password"
-                formControlName="password"
-                class="form-control"
-                maxlength="15"
-              />
-              <!-- <div
-              *ngIf="
-                password?.invalid && (password?.dirty || password?.touched)
-              "
-              class="error"
-            >
-              <div *ngIf="password?.errors?.['required']">Enter password.</div>
-              <div *ngIf="password?.errors?.['pattern']">
-                Enter valid password.
+              <div class="input-group">
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  id="password"
+                  formControlName="password"
+                  class="form-control"
+                  maxlength="15"
+                />
+                <div class="input-group-append">
+                  <button (click)="showPassword = !showPassword">
+                    <i *ngIf="showPassword" class="fa fa-eye-slash"></i>
+                    <i *ngIf="!showPassword" class="fa fa-eye"></i>
+                  </button>
+                </div>
               </div>
-            </div> -->
+              <div
+                *ngIf="
+                  isSubmitted &&
+                  passwordControl?.invalid &&
+                  passwordControl?.touched
+                "
+              >
+                <div
+                  *ngIf="passwordControl?.errors?.['required']"
+                  class="text-danger error-message"
+                >
+                  Password is required.
+                </div>
+                <div
+                  *ngIf="passwordControl?.errors?.['pattern']"
+                  class="text-danger error-message"
+                >
+                  Please enter a valid password.
+                </div>
+              </div>
             </div>
           </form>
           <div class="row">

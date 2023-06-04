@@ -29,7 +29,6 @@ export class HttpsInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    console.log('dsfsd  ');
     const regExp = new RegExp(/assets/g, 'i');
     let newReq;
     if (!this.isExcludedEndpoint(request.url)) {
@@ -57,7 +56,6 @@ export class HttpsInterceptor implements HttpInterceptor {
       tap(
         (event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
-            console.log('sdfsdf');
             /* do stuff with response if you want*/
           }
         },

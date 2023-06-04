@@ -31,4 +31,7 @@ export class ApiService {
   updateUserDetail(data: any): Observable<any> {
     return this.http.put(`updateuser`, data);
   }
+  updateUserProfileImage(data: any): Observable<any> {
+    return this.http.put(`updateuser`, data);
+  }
 }

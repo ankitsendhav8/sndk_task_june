@@ -13,6 +13,8 @@ export class ProfileComponent implements OnInit {
   public userDetails!: IUser;
   public profileForm!: FormGroup;
   public isSubmitted: boolean = false;
+  public profileImage: any;
+  public profileImageData: any;
   public emailPattern =
     /^(("[\w-\s]+")|([\w-\+]+(?:\.[\w-\+]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/;
 
@@ -35,15 +37,60 @@ export class ProfileComponent implements OnInit {
       this.profileForm.patchValue(this.userDetails);
     }
   }
-  updateDetail() {
-    let data = this.profileForm.value;
-    let formData = new FormData();
-    formData.append('firstName', data.firstName);
-    formData.append('lastName', data.lastName);
-    formData.append('email', data.email);
+  get emailControl() {
+    return this.profileForm.get('email');
+  }
 
-    this.apiService.updateUserDetail(formData).subscribe((response) => {
+  get fNameControl() {
+    return this.profileForm.get('firstName');
+  }
+  get lNameControl() {
+    return this.profileForm.get('lastName');
+  }
+  onFileSelected(files: any): void {
+    if (files.length > 0) {
+      const fileToUpload = files.item(0);
+      console.log(fileToUpload);
+
+      const reader = new FileReader();
+
+      reader.onload = (e: any) => {
+        this.profileImage = e.target.result;
+      };
+
+      reader.readAsDataURL(fileToUpload);
+
+      this.profileImageData = fileToUpload;
+    }
+  }
+  updateDetail() {
+    this.isSubmitted = true;
+    if (this.profileForm.valid) {
+      let data = this.profileForm.value;
+      data.fullName = data.firstName + ' ' + data.lastName;
+
+      if (this.profileImageData) {
+        let formData = new FormData();
+        formData.append('profileImage', this.profileImageData);
+        this.apiService
+          .updateUserProfileImage(formData)
+          .subscribe((resp: any) => {
+            console.log(resp);
+            this.isSubmitted = false;
+            if (resp && resp.success) {
+              data.profileImage = resp.data.image;
+              this.updateUserDetails(data);
+            }
+          });
+      } else {
+        this.updateUserDetails(data);
+      }
+    }
+  }
+  updateUserDetails(data: any) {
+    this.apiService.updateUserDetail(data).subscribe((response) => {
       console.log(response);
+      this.isSubmitted = false;
     });
   }
 }

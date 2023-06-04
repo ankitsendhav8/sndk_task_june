@@ -8,12 +8,12 @@ import { UserService } from './services/user.service';
 })
 export class AppComponent implements OnInit {
   public isLoggedIn: boolean = false;
+
   constructor(public userService: UserService) {}
 
   ngOnInit() {
     this.isLoggedIn = this.userService.isUserLoggedIn();
     this.userService.notifyObservable$.subscribe((res) => {
-      console.log('notified result ', res);
       if (res.option === 'loggedIn') {
         this.isLoggedIn = true;
       }

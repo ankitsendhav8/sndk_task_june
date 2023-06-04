@@ -5,3 +5,20 @@
 
 /* Importing  font awesome file. */
 @import "~font-awesome/scss/font-awesome";
+
+.error-message {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+label,
+p {
+  font-size: 15px;
+  font-family: auto;
+}
+button {
+  font-family: auto;
+}
+h2 {
+  font-family: auto;
+}
