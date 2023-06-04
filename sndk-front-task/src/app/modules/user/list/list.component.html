@@ -62,9 +62,13 @@
             <tbody>
               <tr
                 *ngFor="
-                  let user of allUser
+                  let user of pagedItems
                     | paginate
-                      : { itemsPerPage: itemsPerPage, currentPage: currentPage }
+                      : {
+                          itemsPerPage: itemsPerPage,
+                          currentPage: currentPage,
+                          totalItems: totalUsers
+                        }
                 "
               >
                 <th
@@ -91,10 +95,7 @@
             </tbody>
           </table>
           <div class="pagination-controls">
-            <pagination-controls
-              (pageChange)="onPageChange($event)"
-              [(ngModel)]="currentPage"
-            >
+            <pagination-controls (pageChange)="onPageChange($event)">
             </pagination-controls>
           </div>
         </div>

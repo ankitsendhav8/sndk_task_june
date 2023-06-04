@@ -2,12 +2,13 @@
 /* eslint-disable import/no-named-as-default */
 import { Router } from 'express';
 import AuthController from './auth.controller';
+import createAuthenticationSchema from '../../validations/entity.validation';
 // import validateUser from '../../middlewares/validation.middleware';
 
 const router = Router();
 
-router.post('/signup', AuthController.signup);
-router.post('/login', AuthController.login);
+router.post('/signup', createAuthenticationSchema, AuthController.signup);
+router.post('/login', createAuthenticationSchema, AuthController.login);
 router.post('/logout', AuthController.logout);
 
 export default router;

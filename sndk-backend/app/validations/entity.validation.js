@@ -1,29 +1,55 @@
 import Joi from 'joi';
 
-const Schemas = Joi.object({
-  title: Joi.string().min(3).max(30).required(),
+export default function createAuthenticationSchema(req, res, next) {
+  const signupSchema = {
+    firstName: Joi.string().required().min(3).max(20).messages({
+      'string.empty': 'First Name can not be empty',
+      'string.min': 'First Name contains min 3 charactor',
+      'string.max': 'First Name contains max 20 charactor',
+    }),
+    lastName: Joi.string().required().min(3).max(20).messages({
+      'string.empty': 'Last Name can not be empty',
+      'string.min': 'Last Name contains min 3 charactor',
+      'string.max': 'Last Name contains max 20 charactor',
+    }),
+    email: Joi.string().email().required().messages({
+      'string.empty': 'Email can not be empty',
+      'string.email': 'Email should be valid',
+    }),
+    password: Joi.string().required().messages({
+      'string.empty': 'Password can not be empty',
+    }),
+  };
 
-  authorName: Joi.string().min(3).max(30).required(),
+  const loginSchema = {
+    email: Joi.string().email().required().messages({
+      'string.empty': 'Email can not be empty',
+      'string.email': 'Email should be valid',
+    }),
+    password: Joi.string().required().messages({
+      'string.empty': 'Password can not be empty',
+    }),
+  };
 
-  authorEmail: Joi.string()
-    .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
-    .required(),
+  const schema = Joi.object(req.url === '/login' ? loginSchema : signupSchema);
 
-  authorContact: Joi.string().min(7).max(10).required(),
+  const options = {
+    abortEarly: false,
+    allowUnknown: true,
+    stripUnknown: true,
+  };
 
-  newsType: Joi.string().min(3).max(30).required(),
+  const { error, value } = schema.validate(req.body, options);
 
-  discription: Joi.string().min(5).max(300).required(),
-
-  publishDate: Joi.date(),
-
-  url: Joi.string()
-    .required()
-    .pattern(
-      new RegExp(
-        '^(http://www.|https://www.|http://|https://)?[a-z0-9]+([-.]{1}[a-z0-9]+)*.[a-z]{2,5}(:[0-9]{1,5})?(/.*)?$'
-      )
-    ),
-});
-
-module.exports = { '/news/add': Schemas };
+  if (error) {
+    console.log('error ', error);
+    res.json({
+      success: 0,
+      message: error.details[0].message,
+    });
+    // throw Error(error.details[0].message.replace(/['"]+/g, ''));
+  } else {
+    req.body = value;
+    next();
+  }
+}

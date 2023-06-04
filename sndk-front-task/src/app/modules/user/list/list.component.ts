@@ -13,14 +13,15 @@ export class ListComponent implements OnInit {
   public selectedStatus: string = '';
   public allStatus: { label: string; value: string }[] = [];
   public currentPage: number = 1;
-  public itemsPerPage: number = 10;
-  public totalUsers: number = 100;
+  public itemsPerPage: number = 2;
+  public totalUsers!: number;
+  pagedItems: IUser[] = [];
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.allUser = [
       {
-        id: 15,
+        id: 1,
         firstName: 'string tb data',
         lastName: 'string tb data',
         profileImage: 'string tb data',
@@ -29,7 +30,7 @@ export class ListComponent implements OnInit {
         status: 'active',
       },
       {
-        id: 15,
+        id: 2,
         firstName: 'string tb data',
         lastName: 'string tb data',
         profileImage: 'string tb data',
@@ -38,7 +39,7 @@ export class ListComponent implements OnInit {
         status: 'inactive',
       },
       {
-        id: 15,
+        id: 3,
         firstName: 'string tb data',
         lastName: 'string tb data',
         profileImage: 'string tb data',
@@ -47,7 +48,7 @@ export class ListComponent implements OnInit {
         status: 'active',
       },
       {
-        id: 15,
+        id: 4,
         firstName: 'string tb data',
         lastName: 'string tb data',
         profileImage: 'string tb data',
@@ -74,14 +75,16 @@ export class ListComponent implements OnInit {
         status: 'active',
       },
     ];
+    this.totalUsers = this.allUser.length;
     this.allStatus = [
       { label: 'Active', value: 'active' },
       { label: 'Inactive', value: 'inactive' },
     ];
-    this.getAllUserList();
+    // this.getAllUserList();
+    this.loadItems();
   }
   getAllUserList() {
-    let data: any = { page: 1, limit: 10 };
+    let data: any;
     if (this.searchText) {
       data.keyword = this.searchText;
     }
@@ -102,6 +105,16 @@ export class ListComponent implements OnInit {
     }
   }
   onPageChange(event: any) {
-    console.log(event);
+    this.currentPage = event;
+    this.loadItems();
+  }
+  loadItems(): void {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    console.log(startIndex);
+    this.pagedItems = this.allUser.slice(
+      startIndex,
+      startIndex + this.itemsPerPage
+    );
+    console.log(this.pagedItems);
   }
 }
