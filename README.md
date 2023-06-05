@@ -20,7 +20,7 @@ OS - WIN 32 *64
 Run ng serve or npm start for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
 
 # Code structure
-├── src/
+├── src/                                                                                                                          
 │   └── app
 │        └── constants
 │        └── guards
