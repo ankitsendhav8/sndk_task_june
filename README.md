@@ -1,4 +1,4 @@
-- sndk-backend : Contains backend api code which have express framwork
+- sndk-backend : Contains backend api code which have express framework
 - sndk-front-task : Contains front end code which is created using angular 
 - sndk-task.sql : contains database query
 
