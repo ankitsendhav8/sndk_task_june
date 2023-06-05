@@ -21,16 +21,16 @@ Run ng serve or npm start for a dev server. Navigate to http://localhost:4200/. 
 
 # Code structure
 ├── src/                                                                                                                          
-│   └── app
-│        └── constants
-│        └── guards
-│        └── interceptor
-│        └── modules
-│        └── services
-│        └── app.module.ts
-│   └── assets 
-│   └── environments
-└── ...
+│   └── app                                                                                                                        
+│        └── constants                                                                                                                        
+│        └── guards                                                                                                                        
+│        └── interceptor                                                                                                                        
+│        └── modules                                                                                                                        
+│        └── services                                                                                                                        
+│        └── app.module.ts                                                                                                                        
+│   └── assets                                                                                                                         
+│   └── environments                                                                                                                        
+└── ...                                                                                                                        
 
 # Code scaffolding
 Run ng generate component component-name to generate a new component. You can also use ng generate directive|pipe|service|class|guard|interface|enum|module.
@@ -69,19 +69,19 @@ npm run build: Builds the project for production.
 # Code structure
 The project follows the following structure:
 
-├── app/
-│   └── config
-│         └── database.js
-│   └── controllers 
-│   └── middelwares
-│   └── services
-│   └── validations
-│   └── views
-│   └── index.js
-│   └── routes.js
-├── public/
-├── index.js
-└── ...
+├── app/                                                                                                                        
+│   └── config                                                                                                                        
+│         └── database.js                                                                                                                        
+│   └── controllers                                                                                                                         
+│   └── middelwares                                                                                                                        
+│   └── services                                                                                                                        
+│   └── validations                                                                                                                        
+│   └── views                                                                                                                        
+│   └── index.js                                                                                                                        
+│   └── routes.js                                                                                                                        
+├── public/                                                                                                                        
+├── index.js                                                                                                                        
+└── ...                                                                                                                        
 
 index.js: Entry point of the application.
 controllers/: Handles request/response logic.
