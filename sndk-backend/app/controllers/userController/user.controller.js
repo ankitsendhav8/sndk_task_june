@@ -22,7 +22,7 @@ class UserController {
               firstName: result[0].vFirstName,
               lastName: result[0].vLastName,
               fullName: result[0].vFullName || '',
-              profileImage: result[0].vProfileImage || '',
+              profileImage: result[0].vProfileImage || null,
               status: result[0].eStatus,
               email: result[0].vEmail,
               createdAt: await GeneralFunctionService.changeDate(
@@ -43,9 +43,9 @@ class UserController {
             });
           }
         } else {
-          res.status(403).json({
+          res.status(400).json({
             success: 0,
-            message: 'Invalid User ',
+            message: 'Unauthorized User ',
           });
         }
       } else {
@@ -78,7 +78,9 @@ class UserController {
             vFullName: userDetails.fullName,
             vEmail: userDetails.email.toLowerCase(),
             eStatus: userDetails.status,
-            vProfileImage: userDetails.profileImage,
+            vProfileImage: userDetails.profileImage
+              ? userDetails.profileImage
+              : null,
           };
 
           data_for_update.dtModifiedAt =
@@ -95,7 +97,7 @@ class UserController {
               firstName: result[0].vFirstName,
               lastName: result[0].vLastName,
               fullName: result[0].vFullName || '',
-              profileImage: result[0].vProfileImage || '',
+              profileImage: result[0].vProfileImage || null,
               status: result[0].eStatus,
               email: result[0].vEmail,
               createdAt: await GeneralFunctionService.changeDate(
@@ -171,9 +173,9 @@ class UserController {
             });
           }
         } else {
-          res.status(403).json({
+          res.status(400).json({
             success: 0,
-            message: 'Invalid User ',
+            message: 'Unauthorized user ',
           });
         }
       } else {

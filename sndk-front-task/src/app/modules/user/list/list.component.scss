@@ -5,3 +5,10 @@
   width: 120px;
   height: 40px;
 }
+.no-data-block {
+  display: flex;
+  justify-content: center;
+  p {
+    font-size: 30px;
+  }
+}

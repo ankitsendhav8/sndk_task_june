@@ -80,7 +80,6 @@ export class ProfileComponent implements OnInit {
         this.apiService
           .updateUserProfileImage(this.userDetails.id, formData)
           .subscribe((resp: any) => {
-            console.log(resp);
             this.isSubmitted = false;
             if (resp && resp.success) {
               data.profileImage = resp.data.path;

@@ -8,7 +8,6 @@ class FileuploadService {
   };
 
   getUserDetailByEmail = (email) => {
-    console.log('email', email);
     return db('users').select('*').where('vEmail', email);
   };
   getUserDetailById = (id) => {

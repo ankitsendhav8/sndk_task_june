@@ -21,7 +21,7 @@ class GeneralFunctionService {
       var decoded = jwt_decode(token);
       let getUserDetails = await AuthService.getUserDetailById(decoded.id);
 
-      if (decoded.access_key === getUserDetails[0].vAccessKey) {
+      if (decoded.access_key === getUserDetails[0]?.vAccessKey) {
         return true;
       } else {
         return false;

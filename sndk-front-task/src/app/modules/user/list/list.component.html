@@ -6,8 +6,8 @@
         <div class="card-header list-header">
           <div class="row">
             <div class="heading-text col-4">
-              <i class="fa fa-list"></i>
-              <span>User List</span>
+              <i class="fa fa-list mr-1"></i>
+              <span>Users List</span>
             </div>
             <div class="header-filter-row form-row col-8 d-block">
               <div class="row">
@@ -59,7 +59,7 @@
                 <th scope="col">Status</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody *ngIf="pagedItems && pagedItems.length">
               <tr
                 *ngFor="
                   let user of pagedItems
@@ -81,7 +81,11 @@
                 <td>
                   <img
                     class="user-list-image"
-                    [src]="user.profileImage"
+                    [src]="
+                      user.profileImage
+                        ? user.profileImage
+                        : '../../../../assets/image/no-profile-picture-icon.png'
+                    "
                     alt="profile image"
                   />
                 </td>
@@ -100,7 +104,16 @@
               </tr>
             </tbody>
           </table>
-          <div class="pagination-controls">
+          <div
+            class="row w-100 no-data-block"
+            *ngIf="pagedItems && !pagedItems.length"
+          >
+            <p>No user found</p>
+          </div>
+          <div
+            class="pagination-controls"
+            *ngIf="pagedItems && pagedItems.length"
+          >
             <pagination-controls (pageChange)="onPageChange($event)">
             </pagination-controls>
           </div>

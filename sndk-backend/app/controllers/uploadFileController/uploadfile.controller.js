@@ -6,7 +6,6 @@ class UploadFileController {
 
   uploadFile = async (req, res, next) => {
     try {
-      console.log('i am her');
       const userId = req.params.id;
       if (req.headers && req.headers.authorization) {
         let isTokenVerified = await GeneralFunctionService.verifyMyToken(
